@@ -1,4 +1,4 @@
-package com.onekey.thestarwars
+package com.onekey.thestarwars.data
 
 class Planet {
     var climate: String? = null
