@@ -1,25 +1,24 @@
 package com.onekey.thestarwars.view
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.onekey.thestarwars.R
-import com.onekey.thestarwars.data.Films
-import com.onekey.thestarwars.data.source.FilmDataRepository
-import com.onekey.thestarwars.data.source.FilmDataSource
-import com.onekey.thestarwars.data.source.remote.FilmRemoteDataSource
+import com.onekey.thestarwars.viewmodel.FilmViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    lateinit var filmDataRepository: FilmDataRepository
     private val TAG = MainActivity::class.java.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val adapter = FilmsAdapter()
+        val filmViewModel: FilmViewModel = ViewModelProvider
+            .NewInstanceFactory()
+            .create(FilmViewModel::class.java)
 
         recyclerView.apply {
             layoutManager = LinearLayoutManager(
@@ -27,27 +26,13 @@ class MainActivity : AppCompatActivity() {
                 LinearLayoutManager.VERTICAL,
                 false
             )
-            this.adapter = adapter
+            adapter = FilmsAdapter().apply {
+                filmViewModel.getFilms().observe(this@MainActivity, Observer { it ->
+                    it.results!!.forEach {
+                        add(it)
+                    }
+                })
+            }
         }
-
-        filmDataRepository = FilmDataRepository(FilmRemoteDataSource)
-        filmDataRepository.browse(object : FilmDataSource.OnBrowseSuccessListener {
-            override fun onSuccess(films: Films) {
-                Log.d(
-                    TAG, "onResponse" +
-                            "\nExpected result..."
-                )
-
-                films.results!!.forEach {
-                    adapter.add(it)
-                }
-            }
-        }, object : FilmDataSource.OnBrowseFailedListener {
-            override fun onFailure() {
-                Log.d(
-                    TAG, "onFailure"
-                )
-            }
-        })
     }
 }
