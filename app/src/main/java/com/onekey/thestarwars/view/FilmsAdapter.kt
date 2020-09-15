@@ -1,13 +1,15 @@
 package com.onekey.thestarwars.view
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.onekey.thestarwars.R
-import com.onekey.thestarwars.data.Film
+import com.onekey.thestarwars.databinding.ActivityMainBinding
 
-class FilmsAdapter : RecyclerView.Adapter<FilmViewHolder>() {
-    val films = mutableListOf<Film>()
+class FilmsAdapter(root: View) : RecyclerView.Adapter<FilmViewHolder>() {
+    private val binding: ActivityMainBinding = DataBindingUtil.getBinding(root)!!
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilmViewHolder =
         FilmViewHolder(
@@ -17,12 +19,7 @@ class FilmsAdapter : RecyclerView.Adapter<FilmViewHolder>() {
         )
 
     override fun onBindViewHolder(holder: FilmViewHolder, position: Int) =
-        holder.setFilm(films[position])
+        holder.setFilm(binding.films!!.results!![holder.adapterPosition])
 
-    override fun getItemCount(): Int = films.size
-
-    fun add(film: Film) {
-        films.add(film)
-        notifyDataSetChanged()
-    }
+    override fun getItemCount(): Int = binding.films?.count ?: 0
 }
