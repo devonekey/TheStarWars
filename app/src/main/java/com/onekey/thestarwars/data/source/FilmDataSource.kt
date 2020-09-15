@@ -1,10 +1,10 @@
 package com.onekey.thestarwars.data.source
 
-import com.onekey.thestarwars.data.Films
+import com.onekey.thestarwars.data.Film
 
 interface FilmDataSource {
     interface OnBrowseSuccessListener {
-        fun onSuccess(films: Films)
+        fun onSuccess(films: List<Film>)
     }
 
     interface OnBrowseFailedListener {

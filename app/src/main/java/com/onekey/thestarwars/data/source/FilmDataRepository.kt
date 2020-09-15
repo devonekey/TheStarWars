@@ -1,7 +1,6 @@
 package com.onekey.thestarwars.data.source
 
 import com.onekey.thestarwars.data.Film
-import com.onekey.thestarwars.data.Films
 
 class FilmDataRepository(
     val filmRemoteDataSource: FilmDataSource
@@ -13,8 +12,8 @@ class FilmDataRepository(
         onBrowseFailedListener: FilmDataSource.OnBrowseFailedListener
     ) {
         filmRemoteDataSource.browse(object : FilmDataSource.OnBrowseSuccessListener {
-            override fun onSuccess(films: Films) {
-                cache.addAll(films.results!!)
+            override fun onSuccess(films: List<Film>) {
+                cache.addAll(films)
 
                 onBrowseSuccessListener.onSuccess(films)
             }

@@ -27,7 +27,7 @@ object FilmRemoteDataSource : FilmDataSource {
                     )
 
                     if (response.body() != null) {
-                        onBrowseSuccessListener.onSuccess(response.body()!!)
+                        onBrowseSuccessListener.onSuccess(response.body()!!.results!!)
                     }
                 }
 

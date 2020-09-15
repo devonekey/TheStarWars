@@ -19,7 +19,7 @@ class FilmsAdapter(root: View) : RecyclerView.Adapter<FilmViewHolder>() {
         )
 
     override fun onBindViewHolder(holder: FilmViewHolder, position: Int) =
-        holder.setFilm(binding.films!!.results!![holder.adapterPosition])
+        holder.setFilm(binding.viewModel!!.films.value!![holder.adapterPosition])
 
-    override fun getItemCount(): Int = binding.films?.count ?: 0
+    override fun getItemCount(): Int = binding.viewModel!!.films.value?.size ?: 0
 }

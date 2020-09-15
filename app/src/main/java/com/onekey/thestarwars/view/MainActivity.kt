@@ -24,6 +24,8 @@ class MainActivity : AppCompatActivity() {
             .NewInstanceFactory()
             .create(FilmViewModel::class.java)
 
+        binding.viewModel = filmViewModel
+
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(
                 this@MainActivity,
@@ -32,7 +34,6 @@ class MainActivity : AppCompatActivity() {
             )
             adapter = FilmsAdapter(binding.root).apply {
                 filmViewModel.getFilms().observe(this@MainActivity, Observer {
-                    binding.films = it
                     notifyDataSetChanged()
                 })
             }

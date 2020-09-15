@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="films"
-            type="com.onekey.thestarwars.data.Films" />
+            name="viewModel"
+            type="com.onekey.thestarwars.viewmodel.FilmViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

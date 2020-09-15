@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.onekey.thestarwars.data.Films
+import com.onekey.thestarwars.data.Film
 import com.onekey.thestarwars.data.source.FilmDataRepository
 import com.onekey.thestarwars.data.source.FilmDataSource
 import com.onekey.thestarwars.data.source.remote.FilmRemoteDataSource
@@ -12,12 +12,12 @@ import com.onekey.thestarwars.data.source.remote.FilmRemoteDataSource
 class FilmViewModel : ViewModel() {
     private var filmDataRepository: FilmDataRepository =
         FilmDataRepository(FilmRemoteDataSource)
-    private val films = MutableLiveData<Films>()
+    val films = MutableLiveData<List<Film>>()
     private val TAG = FilmViewModel::class.java.simpleName
 
-    fun getFilms(): LiveData<Films> {
+    fun getFilms(): LiveData<List<Film>> {
         filmDataRepository.browse(object : FilmDataSource.OnBrowseSuccessListener {
-            override fun onSuccess(films: Films) {
+            override fun onSuccess(films: List<Film>) {
                 Log.d(
                     TAG, "onResponse" +
                             "\nExpected result..."
