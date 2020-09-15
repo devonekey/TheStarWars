@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.onekey.thestarwars.R
 import com.onekey.thestarwars.databinding.ActivityMainBinding
@@ -20,9 +19,7 @@ class MainActivity : AppCompatActivity() {
             this,
             R.layout.activity_main
         )
-        val filmViewModel: FilmViewModel = ViewModelProvider
-            .NewInstanceFactory()
-            .create(FilmViewModel::class.java)
+        val filmViewModel = FilmViewModel(application)
 
         binding.viewModel = filmViewModel
 
